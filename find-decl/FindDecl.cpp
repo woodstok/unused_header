@@ -14,6 +14,7 @@ static void PrintVersion() {
 }
 
 static char FindDeclUsage[] = "find-decl <source file>";
+  typedef std::vector<std::string>::const_iterator vs_ci;
 
 int main(int argc, const char **argv) {
   llvm::cl::SetVersionPrinter(PrintVersion);
@@ -21,6 +22,15 @@ int main(int argc, const char **argv) {
                                              FindDeclUsage);
 
   auto files = option.getSourcePathList();
+  vs_ci it = files.begin();
+  llvm::outs() << "Dumping sourcepath list : ";
+
+  while(it != files.end()) {
+
+    llvm::outs() << *it << " ";
+    it++;
+  }
+  llvm::outs() << "\n";
   clang::tooling::ClangTool tool(option.getCompilations(), files);
 
   return tool.run(clang::tooling::newFrontendActionFactory<DeclFindingAction>().get());

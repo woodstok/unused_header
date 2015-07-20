@@ -13,12 +13,12 @@ public:
   DeclFinder(clang::SourceManager &SM) : SourceManager(SM), Visitor(SM) {}
 
   void HandleTranslationUnit(clang::ASTContext &Context) final {
-    auto Decls = Context.getTranslationUnitDecl()->decls();
-    for (auto &Decl : Decls) {
-      const auto& FileID = SourceManager.getFileID(Decl->getLocation());
-      if (FileID != SourceManager.getMainFileID())
-        continue;
-      Visitor.TraverseDecl(Decl);
-    }
+//    auto Decls = Context.getTranslationUnitDecl()->decls();
+    Visitor.TraverseDecl(Context.getTranslationUnitDecl());
+   // for (auto &Decl : Decls) {
+   //   const auto& FileID = SourceManager.getFileID(Decl->getLocation());
+   //   if (FileID != SourceManager.getMainFileID())
+   //     continue;
+   // }
   }
 };
