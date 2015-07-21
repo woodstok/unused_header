@@ -7,10 +7,10 @@
 #include "clang/Basic/SourceManager.h"
 
 class DeclFinder : public clang::ASTConsumer {
-  clang::SourceManager &SourceManager;
+  //clang::SourceManager &SourceManager;
   DeclVisitor Visitor;
 public:
-  DeclFinder(clang::SourceManager &SM) : SourceManager(SM), Visitor(SM) {}
+  DeclFinder(clang::SourceManager &SM) :  Visitor(SM) {}
 
   void HandleTranslationUnit(clang::ASTContext &Context) final {
 //    auto Decls = Context.getTranslationUnitDecl()->decls();
